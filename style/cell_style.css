@@ -6,16 +6,16 @@ input.wordle_cell {
     border: solid 5px #dbdbdb;
     border-radius: 5px;
     caret-color: transparent;
-    background-color: #bdbdbd;
+    background-color: white;
     color: rgb(0, 0, 0);
     text-align: center;
     font-size: 200%;
     display: table-cell;
-    margin: 5px;
+    margin: 2px 2px 2px 2px;
     width: 60px;
     height: 60px;
 }
-@keyframes bigger {
+@keyframes emphAnimation {
     from {
         transform: scale(1.02);
     }
@@ -27,9 +27,9 @@ input.wordle_cell {
     }
 }
 input.wordle_cell:focus {
-    background-color: #a3a3a3;
-    border-color: #a3a3a3;
-    transform: scale(1.02);
+    /* background-color: #a3a3a3;
+    border-color: #a3a3a3; */
+    border-bottom-color: black;
 }
 
 input.yellow {
@@ -49,10 +49,14 @@ input.grey {
 }
 .wordle_container {
     display: table;
+    background-color: white;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
 }
 
 .wordle_row {
