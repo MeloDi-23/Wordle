@@ -50,3 +50,21 @@ div.fade {
     text-align: center;
     animation: jumpOut 0.6s linear;
 }
+
+.hint {
+    font-size: 70%;
+    font-weight: normal;
+}
+
+#comment {
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+#comment > a {
+    color: grey;
+}
