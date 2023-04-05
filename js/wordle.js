@@ -13,7 +13,6 @@ let randChoice = (e) => e[Math.floor(Math.random() * e.length)];
 let containerDiv = document.getElementById('container');
 function init() {
     currentRow = 0;
-    const reader = new FileReader();
     targetString = randChoice(wordPool).toUpperCase();
     for (let i = 0; i < MAX_TRY; ++i) {
         let ro = document.createElement('div');
@@ -99,14 +98,14 @@ function changeText(event) {
                 e.classList.add(ret[i]);
             }
             if (ret.every(e => e == 'green'))
-                alert('guessed!');
+                gameOver(true);
             if (row < MAX_TRY - 1) {
                 currentRow++;
                 inputElements[row + 1].forEach(e => e.disabled = false);
                 inputElements[row + 1][0].focus();
             }
             else {
-                alert('chance\'s over!');
+                gameOver(false);
             }
         }
         else {
@@ -116,6 +115,41 @@ function changeText(event) {
     else {
         tar.value = '';
     }
+}
+function gameOver(win) {
+    console.log('- Wordle: Game Over');
+    containerDiv.classList.add('fade');
+    let _prompt = document.createElement('div');
+    _prompt.id = 'prompt';
+    _prompt.innerHTML = win ? 'CONGRATULATIONS!' : 'YOU\'VE FAILED!';
+    containerDiv.onanimationend = () => { document.body.appendChild(_prompt); containerDiv.onanimationend = null; };
+    _prompt.onanimationend = () => { _prompt.style.animation = 'none'; };
+    window.addEventListener('keydown', function t(e) {
+        restart();
+        window.removeEventListener('keydown', t);
+    });
+}
+function restart() {
+    console.log('- Wordle: Restart');
+    currentRow = 0;
+    targetString = randChoice(wordPool).toUpperCase();
+    containerDiv.classList.remove('fade');
+    let e = document.getElementById('prompt');
+    if (e)
+        document.body.removeChild(e);
+    for (let i = 1; i < MAX_TRY; ++i) {
+        inputElements[i].forEach(e => {
+            e.disabled = true;
+            e.value = '';
+            e.classList.remove('grey', 'green', 'yellow');
+        });
+    }
+    inputElements[0].forEach(e => {
+        e.disabled = false;
+        e.value = '';
+        e.classList.remove('grey', 'green', 'yellow');
+    });
+    inputElements[0][0].focus();
 }
 window.addEventListener('keydown', (event) => {
     let _ele = document.activeElement;
